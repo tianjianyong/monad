@@ -118,7 +118,6 @@ defmodule Monad do
   with a function that's missing the first argument. See the example below.
 
   """
-  use Behaviour
 
   @doc """
   Helper for defining monads.
@@ -265,8 +264,8 @@ defmodule Monad.Pipeline do
         quote location: :keep do
           # I think there should be no conflict with the variable used in `fn`,
           # but just to be sure let's use an odd variable name.
-          {bind(unquote(elem(x, 0)), fn _monad_pipebind_arg ->
-            unquote(Macro.pipe(quote do _monad_pipebind_arg end, elem(fc, 0), 0))
+          {bind(unquote(elem(x, 0)), fn monad_pipebind_arg ->
+            unquote(Macro.pipe(quote do monad_pipebind_arg end, elem(fc, 0), 0))
            end), 0}
         end
       end
