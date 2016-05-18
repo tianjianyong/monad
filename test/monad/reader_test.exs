@@ -35,4 +35,20 @@ defmodule Monad.ReaderTest do
   test "Monad.Reader local" do
     assert run(4, (local(ask, &(&1+1)))) == 5
   end
+
+  defp reader_compute(x) do
+    Reader.m do
+      y <- ask
+      return(x * y)
+    end
+  end
+
+  test "Monad.Reader pipeline with do" do
+    r = Monad.Reader.p do
+      return(2)
+      |> reader_compute
+    end
+
+    assert run(10, r) == 20
+  end
 end
