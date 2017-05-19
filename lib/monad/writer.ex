@@ -1,5 +1,4 @@
 defmodule Monad.Writer do
-  use Behaviour
 
   @moduledoc """
   The Writer monad.
@@ -49,8 +48,6 @@ defmodule Monad.Writer do
     quote do
       use Monad
 
-      @behaviour Monad.Writer
-
       alias Monad.Writer, as: W
 
       @spec bind(W.writer_m, ((any) -> W.writer_m)) :: W.writer_m
@@ -82,10 +79,10 @@ defmodule Monad.Writer do
   @doc """
   Returns an initial output value.
   """
-  defcallback initial() :: output
+  @callback initial() :: output
 
   @doc """
   Adds a new piece of output to the output list.
   """
-  defcallback combine(output, output) :: output
+  @callback combine(output, output) :: output
 end

@@ -1,5 +1,4 @@
 defmodule Monad do
-  use Behaviour
 
   @moduledoc """
   Behaviour that provides monadic do-notation and pipe-notation.
@@ -127,8 +126,6 @@ defmodule Monad do
   """
   defmacro __using__(_opts) do
     quote location: :keep do
-      @behaviour Monad
-
       @doc """
       Monad do-notation.
 
@@ -155,12 +152,12 @@ defmodule Monad do
   @doc """
   Inject a value into a monad.
   """
-  defcallback return(any) :: monad
+  @callback return(any) :: monad
 
   @doc """
   Bind a value in the monad to the passed function which returns a new monad.
   """
-  defcallback bind(monad, (any -> monad)) :: monad
+  @callback bind(monad, (any -> monad)) :: monad
 end
 
 defmodule Monad.Internal do
@@ -228,11 +225,9 @@ defmodule Monad.Pipeline do
   Just use `use Monad.Pipeline` in your monad module and define `return/1` and
   `bind/2` and get `pipebind/2` for free.
   """
-  use Behaviour
 
   defmacro __using__(_opts) do
     quote location: :keep do
-      @behaviour Monad.Pipeline
       @doc """
       Pipeline form of the monad.
 
@@ -278,5 +273,5 @@ defmodule Monad.Pipeline do
   Like bind/2 but works on ASTs and the second argument should be a function
   call where the first argument is missing.
   """
-  defcallback pipebind(Macro.t, Macro.t) :: Macro.t
+  @callback pipebind(Macro.t, Macro.t) :: Macro.t
 end

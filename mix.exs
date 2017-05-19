@@ -7,9 +7,9 @@ defmodule Monad.Mixfile do
      name: "monad",
      description: "Monads and do-syntax for Elixir",
      source_url: "https://github.com/rmies/monad",
-     package: package,
+     package: package(),
      elixir: "~> 1.0",
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -20,8 +20,8 @@ defmodule Monad.Mixfile do
   # Returns the list of dependencies in the format:
   # { :foobar, "~> 0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
-    [{:ex_doc, "~> 0.6.2", only: :dev},
-     {:earmark, github: "pragdave/earmark", only: :dev}]
+    [{:ex_doc, "~> 0.15.1", only: :dev},
+     {:earmark, "~> 1.1", only: :dev}]
   end
 
   defp package do
